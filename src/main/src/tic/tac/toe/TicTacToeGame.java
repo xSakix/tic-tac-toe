@@ -7,12 +7,7 @@ public class TicTacToeGame  {
     public static Game start(){
         return new Game() {
 
-            private GameShape[][] grid = new GameShape[3][3];
-
-            @Override
-            public boolean isStarted() {
-                return true;
-            }
+            private GameShape[][] grid = new GameShape[MAX_ROW][MAX_COL];
 
             @Override
             public boolean isFinished() {

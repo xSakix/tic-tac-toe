@@ -1,7 +1,9 @@
 package tic.tac.toe;
 
 public interface Game {
-    boolean isStarted();
+
+    static final int MAX_ROW = 3;
+    static final int MAX_COL = 3;
 
     boolean isFinished();
 

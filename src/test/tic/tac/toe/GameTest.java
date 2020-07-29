@@ -14,7 +14,9 @@ public class GameTest{
     public void playGameScenario(){
         Game game = TicTacToeGame.start();
         Assert.assertNotNull(game);
-        Assert.assertTrue(game.isStarted());
+
+        //started actualy has no meaning...so lets remove it
+        //Assert.assertTrue(game.isStarted());
         Assert.assertFalse(game.isFinished());
 
         GameShape oShape = ShapeFactory.newOShape(GridPosition.ONE);
@@ -41,8 +43,107 @@ public class GameTest{
             Assert.assertTrue(game.canAdd(shape));
         }
 
-        //what does it mean that the game is finished?
         Assert.assertTrue(game.isFinished());
+    }
+
+    enum ShapeType{
+        O,X;
+
+        public GameShape createShape(int[] pos){
+            if(this == O){
+                return ShapeFactory.newOShape(pos);
+            } else if (this == X) {
+                return ShapeFactory.newXShape(pos);
+            }
+            return null;
+        }
+    }
+
+    private static final int FIRST_ROW = 0;
+    private static final int SECOND_ROW = 1;
+    private static final int THIRD_ROW = 2;
+
+    private static final int FIRST_COL = 0;
+    private static final int SECOND_COL = 1;
+    private static final int THIRD_COL = 2;
+
+    enum WhichDiagonal{
+        FROM_ONE_TO_NINE,
+        FROM_THREE_TO_SEVEN;
+
+        public int[][] positions(){
+            if(this == FROM_ONE_TO_NINE){
+                return new int[][]{{0,0},{1,1},{2,2}};
+            }else if(this == FROM_THREE_TO_SEVEN){
+                return new int[][]{{2,0},{1,1},{0,2}};
+            }
+
+            return null;
+        }
+    }
+
+    @Test
+    public void finishedGame(){
+        emptyGrid();
+        //there are 8 ways * 2 shapes to finish the game, so let's define them...
+        rowFinishedOfGivenShape(FIRST_ROW,ShapeType.O);
+        rowFinishedOfGivenShape(SECOND_ROW,ShapeType.O);
+        rowFinishedOfGivenShape(THIRD_ROW,ShapeType.O);
+
+        rowFinishedOfGivenShape(FIRST_ROW,ShapeType.X);
+        rowFinishedOfGivenShape(SECOND_ROW,ShapeType.X);
+        rowFinishedOfGivenShape(THIRD_ROW,ShapeType.X);
+
+        colFinishedOfGivenShape(FIRST_COL,ShapeType.O);
+        colFinishedOfGivenShape(SECOND_COL,ShapeType.O);
+        colFinishedOfGivenShape(THIRD_COL,ShapeType.O);
+
+        colFinishedOfGivenShape(FIRST_COL,ShapeType.X);
+        colFinishedOfGivenShape(SECOND_COL,ShapeType.X);
+        colFinishedOfGivenShape(THIRD_COL,ShapeType.X);
+
+        diagonalFinishedOfGivenShape(WhichDiagonal.FROM_ONE_TO_NINE,ShapeType.O);
+        diagonalFinishedOfGivenShape(WhichDiagonal.FROM_ONE_TO_NINE,ShapeType.X);
+
+        diagonalFinishedOfGivenShape(WhichDiagonal.FROM_THREE_TO_SEVEN,ShapeType.O);
+        diagonalFinishedOfGivenShape(WhichDiagonal.FROM_THREE_TO_SEVEN,ShapeType.X);
+
+    }
+
+    private void diagonalFinishedOfGivenShape(WhichDiagonal diagonal, ShapeType type) {
+        Game game = TicTacToeGame.start();
+        for(int[] coords : diagonal.positions()){
+            game.add(type.createShape(coords));
+        }
+
+        Assert.assertTrue(game.isFinished());
+    }
+
+    private void colFinishedOfGivenShape(int col, ShapeType type) {
+        Game game = TicTacToeGame.start();
+
+        for(int i = 0 ; i < Game.MAX_ROW; i++){
+            int[] pos = new int[]{i,col};
+            game.add(type.createShape(pos));
+        }
+
+        Assert.assertTrue(game.isFinished());
+    }
+
+    private void rowFinishedOfGivenShape(int row, ShapeType type) {
+        Game game = TicTacToeGame.start();
+
+        for(int i = 0 ; i < Game.MAX_COL; i++){
+            int[] pos = new int[]{row,i};
+            game.add(type.createShape(pos));
+        }
+
+        Assert.assertTrue(game.isFinished());
+    }
+
+    private void emptyGrid() {
+        Game game = TicTacToeGame.start();
+        Assert.assertFalse(game.isFinished());
     }
 
 }
