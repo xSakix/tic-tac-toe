@@ -1,6 +1,5 @@
 package tic.tac.toe.UI;
 
-import com.sun.prism.ps.ShaderFactory;
 import tic.tac.toe.*;
 
 import javax.swing.*;
