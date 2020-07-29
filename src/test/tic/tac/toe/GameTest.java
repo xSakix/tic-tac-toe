@@ -41,6 +41,7 @@ public class GameTest{
             Assert.assertTrue(game.canAdd(shape));
         }
 
+        //what does it mean that the game is finished?
         Assert.assertTrue(game.isFinished());
     }
 
