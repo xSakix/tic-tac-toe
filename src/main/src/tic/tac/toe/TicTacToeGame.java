@@ -27,7 +27,7 @@ public class TicTacToeGame  {
 
             @Override
             public void add(GameShape shape) {
-
+                grid[shape.row()][shape.column()] = shape;
             }
         };
     }
