@@ -36,11 +36,12 @@ public class GameTest{
         Assert.assertFalse(game.isFinished());
 
         List<GameShape> shapesToAdd = new ArrayList<>();
-        shapesToAdd.add(ShapeFactory.newXShape(GridPosition.FOUR));
-        shapesToAdd.add(ShapeFactory.newXShape(GridPosition.SEVEN));
+        shapesToAdd.add(ShapeFactory.newXShape(GridPosition.FIVE));
+        shapesToAdd.add(ShapeFactory.newXShape(GridPosition.EIGHT));
         for(GameShape shape: shapesToAdd){
             Assert.assertNotNull(shape);
             Assert.assertTrue(game.canAdd(shape));
+            game.add(shape);
         }
 
         Assert.assertTrue(game.isFinished());
