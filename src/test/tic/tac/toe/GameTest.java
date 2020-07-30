@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.Assert.fail;
 
@@ -109,6 +110,30 @@ public class GameTest{
         diagonalFinishedOfGivenShape(WhichDiagonal.FROM_THREE_TO_SEVEN,ShapeType.O);
         diagonalFinishedOfGivenShape(WhichDiagonal.FROM_THREE_TO_SEVEN,ShapeType.X);
 
+
+        cantAddAnyMoreShapes();
+    }
+
+    private void cantAddAnyMoreShapes() {
+        //Let assume for now full grid without a line or diagonal of same shapes
+        //The more correct one would be to discover that the next shape can't advance the game, but
+        //thats a much harder case
+        Game game = TicTacToeGame.start();
+
+        game.add(ShapeFactory.newOShape(new int[]{0,0}));
+        game.add(ShapeFactory.newOShape(new int[]{1,0}));
+        game.add(ShapeFactory.newXShape(new int[]{2,0}));
+
+        game.add(ShapeFactory.newXShape(new int[]{0,1}));
+        game.add(ShapeFactory.newXShape(new int[]{1,1}));
+        game.add(ShapeFactory.newOShape(new int[]{2,1}));
+
+
+        game.add(ShapeFactory.newOShape(new int[]{0,2}));
+        game.add(ShapeFactory.newOShape(new int[]{1,2}));
+        game.add(ShapeFactory.newXShape(new int[]{2,2}));
+
+        Assert.assertTrue(game.isFinished());
     }
 
     private void diagonalFinishedOfGivenShape(WhichDiagonal diagonal, ShapeType type) {

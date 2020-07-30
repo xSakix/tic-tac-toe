@@ -12,26 +12,74 @@ public class TicTacToeGame implements Game {
     @Override
     public boolean isFinished() {
 
-        for (int row = 0; row < MAX_ROW; row++) {
-            int count_o = 0;
-            int count_x = 0;
-            for (int col = 0; col < MAX_COL; col++) {
-                if (isEmptySlot(grid[row][col])) {
-                    break;
-                }
+        if (checkRows()) return true;
+        if (checkCols()) return true;
+        if(checkLeftToRightDiagonal()) return true;
+        if(checkRightToLeftDiagonal()) return true;
+        if(gridFull()) return true;
 
-                if (grid[row][col] instanceof OShape) {
-                    count_o++;
-                } else if (grid[row][col] instanceof XShape) {
-                    count_x++;
-                }
-            }
+        return false;
+    }
 
-            if (count_o == 3 || count_x == 3) {
-                return true;
+    private boolean gridFull() {
+        for (int row = 0; row < Game.MAX_ROW;row++){
+            for(int col = 0; col < Game.MAX_COL;col++){
+                if(grid[row][col] == null){
+                    return false;
+                }
             }
         }
 
+        return true;
+    }
+
+    private boolean checkRightToLeftDiagonal() {
+        int[][] diag = new int[][]{{2, 0}, {1, 1}, {0, 2}};
+        int count_o = 0;
+        int count_x = 0;
+        for (int[] coord : diag) {
+            if (isEmptySlot(grid[coord[0]][coord[1]])) {
+                break;
+            }
+
+            if (grid[coord[0]][coord[1]] instanceof OShape) {
+                count_o++;
+            } else if (grid[coord[0]][coord[1]] instanceof XShape) {
+                count_x++;
+            }
+            if (count_o == 3 || count_x == 3) {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    private boolean checkLeftToRightDiagonal() {
+        int[][] diag = new int[][]{{0, 0}, {1, 1}, {2, 2}};
+        int count_o = 0;
+        int count_x = 0;
+
+        for (int[] coord : diag) {
+            if (isEmptySlot(grid[coord[0]][coord[1]])) {
+                break;
+            }
+
+            if (grid[coord[0]][coord[1]] instanceof OShape) {
+                count_o++;
+            } else if (grid[coord[0]][coord[1]] instanceof XShape) {
+                count_x++;
+            }
+            if (count_o == 3 || count_x == 3) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
+    private boolean checkCols() {
         for (int col = 0; col < MAX_COL; col++) {
             int count_o = 0;
             int count_x = 0;
@@ -51,45 +99,29 @@ public class TicTacToeGame implements Game {
                 return true;
             }
         }
+        return false;
+    }
 
-        int[][] diag = new int[][]{{0, 0}, {1, 1}, {2, 2}};
-        int count_o = 0;
-        int count_x = 0;
-        for (int[] coord : diag) {
-            if (isEmptySlot(grid[coord[0]][coord[1]])) {
-                break;
+    private boolean checkRows() {
+        for (int row = 0; row < MAX_ROW; row++) {
+            int count_o = 0;
+            int count_x = 0;
+            for (int col = 0; col < MAX_COL; col++) {
+                if (isEmptySlot(grid[row][col])) {
+                    break;
+                }
+
+                if (grid[row][col] instanceof OShape) {
+                    count_o++;
+                } else if (grid[row][col] instanceof XShape) {
+                    count_x++;
+                }
             }
 
-            if (grid[coord[0]][coord[1]] instanceof OShape) {
-                count_o++;
-            } else if (grid[coord[0]][coord[1]] instanceof XShape) {
-                count_x++;
-            }
             if (count_o == 3 || count_x == 3) {
                 return true;
             }
-
         }
-
-        diag = new int[][]{{2, 0}, {1, 1}, {0, 2}};
-        count_o = 0;
-        count_x = 0;
-        for (int[] coord : diag) {
-            if (isEmptySlot(grid[coord[0]][coord[1]])) {
-                break;
-            }
-
-            if (grid[coord[0]][coord[1]] instanceof OShape) {
-                count_o++;
-            } else if (grid[coord[0]][coord[1]] instanceof XShape) {
-                count_x++;
-            }
-            if (count_o == 3 || count_x == 3) {
-                return true;
-            }
-
-        }
-
         return false;
     }
 
