@@ -145,6 +145,11 @@ public class TicTacToeGame implements Game {
         return gridFull();
     }
 
+    @Override
+    public boolean isLine() {
+        return checkRows() || checkCols() || checkLeftToRightDiagonal() || checkRightToLeftDiagonal();
+    }
+
 
     public static Game start() {
         return new TicTacToeGame();

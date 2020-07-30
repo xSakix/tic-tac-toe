@@ -72,9 +72,9 @@ public class Program {
                                 game.add(shape);
                                 gamePanel.repaint();
                                 if(game.isFinished()){
-                                    String msg = currType.toString()+" wins! Play again?";
-                                    if(game.isGridFull()){
-                                        msg = "It's a draw! Play again?";
+                                    String msg = "It's a draw! Play again?";
+                                    if(game.isLine()){
+                                        msg = currType.toString()+" wins! Play again?";
                                     }
                                     int n = JOptionPane.showConfirmDialog( window,msg,"Game over",JOptionPane.YES_NO_OPTION);
                                     if(n == 0){

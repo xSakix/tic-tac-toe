@@ -12,4 +12,6 @@ public interface Game {
     void add(GameShape shape);
 
     boolean isGridFull();
+
+    boolean isLine();
 }
