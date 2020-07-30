@@ -72,7 +72,11 @@ public class Program {
                                 game.add(shape);
                                 gamePanel.repaint();
                                 if(game.isFinished()){
-                                    int n = JOptionPane.showConfirmDialog( window,currType.toString()+" wins! Would you like to play again?","Game over",JOptionPane.YES_NO_OPTION);
+                                    String msg = currType.toString()+" wins! Play again?";
+                                    if(game.isGridFull()){
+                                        msg = "It's a draw! Play again?";
+                                    }
+                                    int n = JOptionPane.showConfirmDialog( window,msg,"Game over",JOptionPane.YES_NO_OPTION);
                                     if(n == 0){
                                         game = UITicTacToeGame.start();
                                         gamePanel.repaint();

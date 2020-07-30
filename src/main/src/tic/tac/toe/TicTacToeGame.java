@@ -140,6 +140,11 @@ public class TicTacToeGame implements Game {
         grid[shape.row()][shape.column()] = shape;
     }
 
+    @Override
+    public boolean isGridFull() {
+        return gridFull();
+    }
+
 
     public static Game start() {
         return new TicTacToeGame();

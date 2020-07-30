@@ -10,4 +10,6 @@ public interface Game {
     boolean canAdd(GameShape shape);
 
     void add(GameShape shape);
+
+    boolean isGridFull();
 }
